@@ -28,5 +28,18 @@ class Settings(BaseSettings):
     def allowed_origins_list(self) -> list[str]:
         return [origin.strip() for origin in self.allowed_origins.split(",") if origin.strip()]
 
+    @property
+    def sqlalchemy_database_url(self) -> str:
+        """`database_url` with an explicit driver so SQLAlchemy picks psycopg (v3),
+        the driver we actually install, instead of defaulting to psycopg2."""
+        url = self.database_url
+        if url.startswith("postgresql+"):
+            return url
+        if url.startswith("postgresql://"):
+            return url.replace("postgresql://", "postgresql+psycopg://", 1)
+        if url.startswith("postgres://"):
+            return url.replace("postgres://", "postgresql+psycopg://", 1)
+        return url
+
 
 settings = Settings()
