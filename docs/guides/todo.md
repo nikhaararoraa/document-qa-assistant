@@ -51,7 +51,7 @@ Goal: a running FastAPI service with a migrated Supabase schema.
   - [x] HNSW index (vector) + GIN index (full-text)
   - [x] RLS policies (users see only their own chats)
 - [x] `uv run alembic upgrade head` against Supabase direct connection
-- [ ] `app/database/supabase.py` — user-scoped and service-role clients
+- [x] `app/database/supabase.py` — user-scoped and service-role clients
 - [x] Verify: `uv run uvicorn app.main:app --reload` → health check returns 200
 
 ---
