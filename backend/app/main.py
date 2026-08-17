@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth_router
+from app.api import auth_router, chat_router
 from app.config import settings
 
 app = FastAPI(title="Document Q&A Assistant — SEC Filings")
@@ -15,6 +15,7 @@ app.add_middleware(
 )
 
 app.include_router(auth_router)
+app.include_router(chat_router)
 
 
 @app.get("/health")

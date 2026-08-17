@@ -24,7 +24,7 @@ export type RequestOptions = {
   timeoutMs?: number
 }
 
-async function authHeader(): Promise<Record<string, string>> {
+export async function authHeader(): Promise<Record<string, string>> {
   const {
     data: { session },
   } = await supabase.auth.getSession()
