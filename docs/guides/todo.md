@@ -102,17 +102,17 @@ Goal: end-to-end chat UI streaming from FastAPI, no real retrieval yet.
 
 Goal: SEC filings in the corpus are parsed, chunked, embedded, and stored in Supabase.
 
-- [ ] `ingest/` scripts (or CLI entrypoint) for one-off corpus loading
-- [ ] HTML → normalized Markdown extraction (preserve page/section metadata)
-- [ ] Chunking strategy (size + overlap; store chunk index, page, section, ticker, filing type, year)
-- [ ] Write `source_documents` rows with filing metadata from `manifest.json`
-- [ ] Write `document_chunks` rows with text + metadata
-- [ ] OpenAI embedding generation → store `vector(1536)` per chunk
-- [ ] Generated `tsvector` populated for full-text search
-- [ ] Idempotent re-run (skip already-ingested documents)
-- [ ] Unit tests: chunking logic, metadata extraction
-- [ ] Run ingestion on full sample corpus (25 filings × 5 companies)
-- [ ] Verify: chunks exist in Supabase; spot-check a known passage (e.g. Apple revenue mix table)
+- [x] `ingest/` scripts (or CLI entrypoint) for one-off corpus loading — `ingest/chunk_and_embed.py` (`--accession`, `--all`, `--max-chunks`, `--skip-existing`, `--dry-run`)
+- [x] HTML → normalized Markdown extraction (preserve page/section metadata) — Markdown from Phase 2; `page` is unconditionally `NULL` (verified empirically: SEC filings carry no page provenance through Docling on this corpus, whether parsed from HTML or Markdown — documented limitation, not a bug); `section` is derived independently via a regex scan for "Item N." lines rather than from the extraction itself
+- [x] Chunking strategy (size + overlap; store chunk index, page, section, ticker, filing type, year) — Docling `HybridChunker` (512-token target, hierarchical split + `merge_peers`) replaces manual size/overlap chunking; all listed fields stored
+- [x] Write `source_documents` rows with filing metadata from `manifest.json` (Phase 3, `load_source_documents.py`)
+- [x] Write `document_chunks` rows with text + metadata
+- [x] Local Ollama (`nomic-embed-text`) embedding generation → store `vector(768)` per chunk — switched from the original OpenAI/`vector(1536)` plan to keep ingestion cost-free (see migration `c3d8f1a4b672`)
+- [x] Generated `tsvector` populated for full-text search
+- [x] Idempotent re-run (skip already-ingested documents) — `--skip-existing` (default on), delete-then-reinsert on reprocess
+- [x] Unit tests: chunking logic, metadata extraction — 31 tests in `tests/ingest/`, offline (no network/DB/Ollama)
+- [x] Run ingestion on full sample corpus (25 filings × 5 companies) — 7,033 chunks total, $0 cost
+- [x] Verify: chunks exist in Supabase; spot-check a known passage (e.g. Apple revenue mix table) — semantic search for "Apple revenue by reportable segment" surfaces Note 13 (Segment Information and Geographic Data) as the top result
 
 ---
 

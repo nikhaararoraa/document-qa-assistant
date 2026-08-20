@@ -8,9 +8,10 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database.base import Base
 
-# Matches OPENAI_EMBEDDING_DIMENSIONS in app/config.py. Changing the embedding model's
-# dimensionality requires a migration, so this is fixed here rather than read from settings.
-EMBEDDING_DIMENSIONS = 1536
+# Matches EMBEDDING_DIMENSIONS in app/config.py (nomic-embed-text via local Ollama).
+# Changing the embedding model's dimensionality requires a migration, so this is fixed
+# here rather than read from settings.
+EMBEDDING_DIMENSIONS = 768
 
 
 class DocumentChunk(Base):

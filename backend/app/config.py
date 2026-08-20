@@ -16,10 +16,13 @@ class Settings(BaseSettings):
     # Postgres (Alembic + direct DB access; must be the direct/session connection)
     database_url: str
 
-    # OpenAI (LLM + embeddings)
+    # OpenAI (LLM, once the chat layer is wired up)
     openai_api_key: str
-    openai_embedding_model: str = "text-embedding-3-small"
-    openai_embedding_dimensions: int = 1536
+
+    # Embeddings — local Ollama, not OpenAI (see backend/ingest/embeddings.py)
+    embedding_model: str = "nomic-embed-text"
+    embedding_dimensions: int = 768
+    ollama_base_url: str = "http://localhost:11434"
 
     # Server
     allowed_origins: str = "http://localhost:5173"

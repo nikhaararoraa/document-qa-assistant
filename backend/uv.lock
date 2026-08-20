@@ -13,7 +13,7 @@ resolution-markers = [
 ]
 
 [options]
-exclude-newer = "2026-08-10T09:49:27.6651532Z"
+exclude-newer = "2026-08-12T08:58:53.0037465Z"
 exclude-newer-span = "P7D"
 
 [[package]]
@@ -757,6 +757,7 @@ dev = [
     { name = "docling" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "tiktoken" },
 ]
 
 [package.metadata]
@@ -781,6 +782,7 @@ dev = [
     { name = "docling", specifier = "==2.118.1" },
     { name = "pytest", specifier = "==9.1.1" },
     { name = "ruff", specifier = "==0.16.0" },
+    { name = "tiktoken", specifier = "==0.13.0" },
 ]
 
 [[package]]
