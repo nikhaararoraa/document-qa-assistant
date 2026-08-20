@@ -24,8 +24,10 @@ exclude-newer = "7 days"
 
 [dependency-groups]
 dev = [
+    "docling==2.118.1",
     "pytest==9.1.1",
     "ruff==0.16.0",
+    "tiktoken==0.13.0",
 ]
 
 [tool.ruff.lint.flake8-bugbear]

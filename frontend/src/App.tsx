@@ -1,7 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 
 import { ProtectedRoute } from '@/components/ProtectedRoute'
-import { Home } from '@/pages/Home'
+import { ChatEmptyState } from '@/pages/chat/ChatEmptyState'
+import { ChatLayout } from '@/pages/chat/ChatLayout'
+import { ChatThread } from '@/pages/chat/ChatThread'
 import { SignIn } from '@/pages/SignIn'
 import { SignUp } from '@/pages/SignUp'
 
@@ -14,10 +16,13 @@ function App() {
         path="/"
         element={
           <ProtectedRoute>
-            <Home />
+            <ChatLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route index element={<ChatEmptyState />} />
+        <Route path="chat/:threadId" element={<ChatThread />} />
+      </Route>
     </Routes>
   )
 }
